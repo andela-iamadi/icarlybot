@@ -1,0 +1,13 @@
+Slack bot: The plan
+
+1. Converse with slack bot over a range of trigger words in dm
+
+2. Retrieve conversation messages and process(using simple triggers for a start).
+
+3. Register trigger words like 'register' and 'present' to be sent to a function that would process and send an ajax call to the rails server
+
+4. Create APIs to handle the read, update and delete functions that are sure to be coming.
+
+5. Test created APIs with POSTMAN
+
+6. Integrate SlackBot to consume the APIs

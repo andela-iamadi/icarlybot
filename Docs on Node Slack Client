@@ -1,0 +1,82 @@
+Prototypes
+
+Prototypes allows other functions, variables, resources to be assessible to an instance variabe which was not available in its origin definition.
+
+Why is it necessary?
+
+Prototypes can only be used by instantiated variables
+
+Available functions to an instance of the slack client class
+
+Variables
+
+team: Current team
+channels: An array of channels in the team
+dms:
+groups: Groups the bot belongs
+users: Users in the team
+bots: Other bots in the team
+socketUrl: Takes on the url of the incoming data from the slack API
+
+ws:
+_messageID:
+
+Function
+
+Login: Log the bot in
+
+_onLogin: the log in event fired. The data from the slack API is passed into this event function.
+
+disconnect: disconnect connections to the slack api.
+
+reconnect: connects again. Increments the _connAttempts counter at every attempt made.
+
+joinChannel. Joins the bot to a channel. The name and callback url of the channel is passed.
+
+_onJoinChannel: Returns a log of the data from logger. Logger is a SLACK_LOG_LEVEL environment process given the attribute 'info' upon initialization.
+
+openDM: Opens a direct message with a user. This function takes on the user_id and a callback url as parameters.
+
+_onOpenDM: Also sends a log of the messages sent before.
+
+.createGroup: Creates a new group. takes on the name of the group and the callback url. This url correspond to the one provided by SLACK asociated with the method. This can be easily gotten from slack's API methods definitions page (https://api.slack.com/methods)
+
+._onCreateGroup: Triggered when a group is created. Returns a log of the group statistics in data.
+
+.setPresence: Set the presence of your bot, according to any function.
+
+.setActive: Set the user to active. Provide the user as active.
+
+.setStatus
+.onSetStatus
+.getUserByID: Takes on the user id and returns the user object in json format ofcourse.
+
+.getUserByName: Takes on the username and returns details about the user.
+
+.getChannelByID(id)
+
+.getChannelByName(name)
+
+.getDMByName: Gets a dm by the name of the sender. Returns the first DM matching the name in the array of dms.
+
+.getGroupByID(id)
+
+.getGroupByName(name)
+
+.getChannelGroupOrDMByID: once an ID has been sent (probably by an 'on' event), use the id to get the associated trigger object, whether it is an ID, group or DM.
+
+.getChannelGroupOrDMByName(id)
+
+.getUnreadCount: Gets the number of unread messages in channels, ims and groups.
+
+.getChannelsWithUnreads: Returns an array of the id of channels, dm or group that have unread messages.
+
+.onStarAdded
+
+.onStarRemoved
+
+.onMessage (message): fired when a user is typing a message, marks a group or something, changes presence or status, joins a channel or does some other event.
+
+._send(message): Sends a message. The message is a json object that must meet the slack approved format, having an id and the message itself. The message is stored in the _pending variable of the Client instance.
+
+._apiCall: initiates an API post call with content type of application/x-www-form-urlencoded. However, this call is made to https since its a slack requirement. To use, you have to specify the method you wish to call (see slack's methods on http://api.slack.com/methods for guide), the parameters required and the callback (the object that would take on the value of the call response).

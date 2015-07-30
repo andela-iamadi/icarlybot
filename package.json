@@ -1,0 +1,28 @@
+{
+  "name": "improvbot",
+  "version": "1.0.0",
+  "description": "A bot to help keep track of Andela fellows in attendance at Improv Sessions",
+  "main": "app.module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-iamadi/Improv-Bot.git"
+  },
+  "keywords": [
+    "Slack",
+    "bot"
+  ],
+  "author": "Innocent Amadi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-iamadi/Improv-Bot/issues"
+  },
+  "homepage": "https://github.com/andela-iamadi/Improv-Bot#readme",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "slack-client": "^1.4.x"
+  }
+}
