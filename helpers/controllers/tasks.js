@@ -1,33 +1,32 @@
 var Tasks;
 var Api = require('../services/apiService');
-var Translator = require('../shared/translator');
 
 Tasks = function() {
 	function Tasks(){
-		this.params = "";
-		this._api = null;
-		this._translator = null;
+		this.params = null;
+		this._api = new Api();
 	}
 
 	Tasks.prototype.create = function(params, callback){
 		debugger;
 		this.params = params;
-		return this._api = new Api('/api/v1/tasks', "POST", params, this.callback);
+		return this._api.processRequest('/api/v1/tasks', "POST", params, callback);
 	}
 
-	Tasks.prototype.update = function() {
+	Tasks.prototype.update = function(params, callback) {
 		this.params = params;
-		this._api = new Api('/api/v1/tasks', "PUT", params, this.callback);
+		return this._api.processRequest('/api/v1/tasks', "PUT", params, callback);
 	}
 
-	Tasks.prototype.show = function() {
+	Tasks.prototype.show = function(params, callback) {
 		this.params = params;
-		this._api = new Api('/api/v1/tasks', "GET", params, this.callback);
+		console.log("About to make the call with the params: " + JSON.stringify(this.params) + " with callback " + typeof callback)
+		return this._api.processRequest('/api/v1/tasks', "GET", params, callback);
 	}
 
-	Tasks.prototype.delete = function(){
+	Tasks.prototype.delete = function(params, callback){
 		this.params = params;
-		return this._api = new Api('/api/v1/tasks', "DELETE", params, this.callback);
+		return this._api.processRequest('/api/v1/tasks', "DELETE", params, callback);
 	}
 
 	Tasks.prototype.callBack = function(data) {

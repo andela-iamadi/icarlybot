@@ -123,7 +123,7 @@ var showServerResponse = function(response, channel) {
 }
 
 slack.on ('error', function(error) {
-  console.error("Error: " + error.message);
+  console.error("Error: " + error);
 });
 
 slack.login();

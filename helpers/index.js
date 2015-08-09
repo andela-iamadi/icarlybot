@@ -10,6 +10,7 @@ Extensions = function() {
 	function Extensions() {
 		this._params = {};
 		this._operator = null;
+		this._translator = null;
 		this._channel = null;
 		this._help = "Hey, I don't understand!!!. Try help?"
 	}
@@ -17,24 +18,28 @@ Extensions = function() {
 	Extensions.prototype.routeReq = function(channel, user, user_response, callback) {
 		this._channel = channel;
 		this._translator = new Translator();
-		console.log(this._translator.translate(user_response));
 		this._params = this._translator.translate(user_response);
+		// this._params = { this._params["controller"] : this._params };
+		var control = this._params["controller"];
+		this._params = { control : this._params };
+		console.log("Params request gotten: " + this._params);
 		// check class, then instantiate appropriate
 		// switch on operation, all cases transverse basic crud
-		if (!this._params.err) {
-			this._operator = this._params.controller == "task" ? new Task() : new User();
-		}
-		switch (this._params.operation) {
-			case "create":
-				return callback(this._operator.create(channel, user, this._params, this.showServerResponse));
-			case "show":
-				return callbac(this._operator.show(channel, user, this._params, this.showServerResponse));
-			case "update":
-				return callback(this._operator.update(channel, user, this._params, this.showServerResponse));
-			case "delete":
-				return callback(this._operator.delete(channel, user, this._params, this.showServerResponse));
-			default:
-				return callback(this.showServerResponse(this._help));
+		if (!this._params.hasOwnProperty('ok')) {
+			this._operator = this._params["controller"] == "task" ? new Task() : new User();
+
+			switch (this._params.operation) {
+				case "create":
+					return callback(this._operator.create(this._params, callback));
+				case "show":
+					return this._operator.show(this._params, callback);
+				case "update":
+					return this._operator.update(this._params, callback);
+				case "delete":
+					return this._operator.delete(this._params, callback);
+				default:
+					return this.showServerResponse(this._help);
+			}
 		}
 	}
 
@@ -43,8 +48,10 @@ Extensions = function() {
 	}
 
 	Extensions.prototype.showServerResponse = function(channel, message) {
-		channel.send(message);
-		return message;
+		if (!message.hasOwnProperty('ok')) {
+			channel.send(message.message);
+			return message.message;
+		}
 	}
 	return Extensions;
 }();

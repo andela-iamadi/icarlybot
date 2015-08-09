@@ -21,14 +21,14 @@ apiService = function () {
     this._responseObject = {};
   }
 
-  apiService.prototype._host = 'localhost:3001';
+  apiService.prototype._host = 'icarly-api.herokuapp.com';
 
   apiService.prototype.processRequest = function (url, method, data, callback) {
+    console.log("Started the api call to: " + this._url);
     this._url = url;
     this._method = method;
     this._data = data;
     this._dataString = JSON.stringify(this._data);
-    console.log("Started the api call to: " + this._url);
     try {
       if (this.method == 'GET') {
         if (this._data.length > 0) { this._url += '?' + querystring.stringify(this._data); }
@@ -62,8 +62,8 @@ apiService = function () {
           return res.on('end', function() {
             var value;
             console.log("Response directly from server: " + buffer + " of type: " + typeof(buffer));
-            value = JSON.parse(buffer);
             if (res.statusCode === 200) {
+              value = JSON.parse(buffer);
               console.log("Accessed the server successfully. Received data: " + value);
               return callback(buffer);
             } else {
