@@ -1,4 +1,4 @@
-var callToAPI;
+var apiService;
 var https = require('http');
 var querystring = require('querystring');
 
@@ -10,8 +10,8 @@ var querystring = require('querystring');
 // var apiKey = '*****';
 // var sessionId = null;
 
-callToAPI = function () {
-  function callToAPI(){
+apiService = function () {
+  function apiService(){
     this._url = "";
     this._method = "";
     this._data = "";
@@ -21,17 +21,18 @@ callToAPI = function () {
     this._responseObject = {};
   }
 
-  callToAPI.prototype._host = 'markup-api.herokuapp.com';
+  apiService.prototype._host = 'icarly-api.herokuapp.com';
 
-  callToAPI.prototype.processRequest = function (url, method, data, callback) {
+  apiService.prototype.processRequest = function (url, method, data, callback) {
+    console.log("Started the api call to: " + this._url);
     this._url = url;
     this._method = method;
     this._data = data;
     this._dataString = JSON.stringify(this._data);
-    console.log("Started the api call to: " + this._url);
     try {
-      if (this.method == 'GET') {
-        if (this._data.length > 0) { this._url += '?' + querystring.stringify(this._data); }
+      if (this._method == 'GET') {
+        //if (this._data > 0) { this._url += '?' + querystring.stringify([this._dataString]); }
+        // if (this._dataString.length > 0) { this._url += '?' + encodeURIComponent(this._dataString); }
       }
       else {
         this._headers = {
@@ -39,12 +40,13 @@ callToAPI = function () {
           'Content-Length': this._dataString.length
         };
       }
-      console.log(callToAPI.prototype._host + " , data length: " + this._dataString.length );
+      console.log(apiService.prototype._host + " , data length: " + this._dataString.length );
       this.options = {
-        host: callToAPI.prototype._host,
+        host: apiService.prototype._host,
         path: this._url,
         method: this._method,
-        headers: this._headers
+        headers: this._headers,
+        json: data
       };
 
       console.log("Enter http request");
@@ -62,8 +64,8 @@ callToAPI = function () {
           return res.on('end', function() {
             var value;
             console.log("Response directly from server: " + buffer + " of type: " + typeof(buffer));
-            value = JSON.parse(buffer);
             if (res.statusCode === 200) {
+              value = JSON.parse(buffer);
               console.log("Accessed the server successfully. Received data: " + value);
               return callback(buffer);
             } else {
@@ -84,6 +86,6 @@ callToAPI = function () {
       console.log(e.message);
     }
   }
-  return callToAPI;
+  return apiService;
 }();
-module.exports = callToAPI;
+module.exports = apiService;

@@ -2,7 +2,7 @@
   "name": "improvbot",
   "version": "1.0.0",
   "description": "A bot to help keep track of Andela fellows in attendance at Improv Sessions",
-  "main": "app.module.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

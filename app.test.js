@@ -5,7 +5,7 @@ var querystring = require('querystring');
 var express = require('express');
 var url = require('url');
 var bodyParser = require('body-parser');
-
+var Reminder = require('./reminder');
 var app = express();
 var port = process.env.PORT || 8080;
 
@@ -24,6 +24,8 @@ var query = url_parts.query;
 });
 
 app.post('/hello', function (req, res, next) {
+var obj = {}
+obj["task"] = req.body
 var url_parts = url.parse(req.url, true);
 var query = url_parts.query;
     console.log(JSON.stringify(req.body));

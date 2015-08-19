@@ -4,7 +4,7 @@ Translator = function() {
 	function Translator(response, user) {
 		this._response = response;
 		this._operations = { n : "create", s : "show", e : "update", x : "delete" }
-		this._keywords = {ta: "task", users : "user", t : "time", d : "date", a : "alias", r : "reminder", c : "category", u: "user_name" };
+		this._keywords = {ta: "task", users : "user", t : "due_time", d : "due_date", a : "alias", r : "reminder", c : "category", f : "frequency", u : "user_name" };
 		this._str_param = "";
 		this._params = {};
 	}
@@ -19,10 +19,10 @@ Translator = function() {
 				return this.searchForKeyword(response, this._params["controller"]);
 			}
 			else {
-				return {'ok' : false, 'msg' : "Okay, something went wrong. Try starting your message with the `task` keyword." }
+				return {'ok' : false, 'message' : "Okay, something went wrong. Try starting your message with the `task` keyword or send `help` to get started." }
 			}
 		}
-		return {'ok' : false, 'msg' : "Uh oh.. I think your message is too short. I don't quite understand it." }
+		return {'ok' : false, 'message' : "Uh oh.. I think your message is too short. I don't quite understand it." }
 	}
 
 	Translator.prototype.searchForKeyword = function (text, opClass) {
@@ -33,11 +33,14 @@ Translator = function() {
 		var keyFound = true;
 		var key = opClass.substring(0, 2);
 		var opFound = false;
+		var word = "";
 		this._params["operation"] = "create";		// A default operator, in case the user doesn't specify;
 		while (endIndex <= text.length) {			// keep doing stuff while in the sentence
 			if (text.substring(endIndex, endIndex + 2) === "--" || endIndex >= text.length) {
 				if (inValue) {
-					this._params[this._keywords[key]] = text.substring(startIndex, endIndex).trim();
+					word = text.substring(startIndex, endIndex).trim()
+					if (key == "d" && word == "") { word = new Date(); }
+					if (word.length > 0) { this._params[this._keywords[key]] = word; }
 					// reset cursory check
 					startIndex = endIndex + 2;
 					keyFound = false;

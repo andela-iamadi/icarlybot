@@ -35,7 +35,7 @@ joinChannel. Joins the bot to a channel. The name and callback url of the channe
 
 _onJoinChannel: Returns a log of the data from logger. Logger is a SLACK_LOG_LEVEL environment process given the attribute 'info' upon initialization.
 
-openDM: Opens a direct message with a user. This function takes on the user_id and a callback url as parameters.
+openDM: Opens a direct message with a user. This function takes on the user_id and a callback function as parameters.
 
 _onOpenDM: Also sends a log of the messages sent before.
 
