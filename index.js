@@ -2,8 +2,8 @@
 var Slack = require ('slack-client');
 var CueBot = require('./app');
 
-// var token = 'xoxb-7916142720-gNfXEy3hOIHLUTM3Ol4rUk0e';
-var token = 'xoxb-7916142720-fjvl0Auh8m4wpvktynqj0vek';
+var token = 'xoxb-6103676707-84LoSdao8sr4s2tzpnaMyqyj'; // arbot
+// var token = 'xoxb-7916142720-fjvl0Auh8m4wpvktynqj0vek'; // CueBot
 autoReconnect = true
 autoMark = true
 
