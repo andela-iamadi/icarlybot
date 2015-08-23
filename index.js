@@ -12,8 +12,6 @@ var slack = new Slack(token, autoReconnect, autoMark);
 var cueBot;
 
 slack.on('open', function () {
-  cueBot  = new CueBot(slack);
-  cueBot.setAllReminders();
   var channels = Object.keys(slack.channels)
       .map(function (k) { return slack.channels[k]; })
       .filter(function (c) { return c.is_member; })
@@ -35,6 +33,10 @@ slack.on('open', function () {
   if (groups.length > 0) {
      console.log('As well as: ' + groups.join(', '));
   }
+  if (typeof cueBot === "undefined") {
+    cueBot  = new CueBot(slack);
+    cueBot.setAllReminders();
+  }
 });
 
 
@@ -43,6 +45,10 @@ slack.on('message', function(message) {
     var user = slack.getUserByID(message.user);
     if (message.user !== slack.self.id)
     cueBot.handleReq(message, user, channel);
+});
+
+slack.on('hello', function(message) {
+  debugger;
 });
 
 slack.on ('error', function(error) {

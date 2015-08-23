@@ -9,6 +9,7 @@ Tasks = function() {
 
 	Tasks.prototype.create = function(params, callback){
 		this.params = params;
+		// Post so we can sneak in parameters
 		return this._api.processRequest('/api/v1/tasks', "POST", params, callback);
 	}
 
