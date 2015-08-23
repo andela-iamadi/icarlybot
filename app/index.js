@@ -41,7 +41,7 @@ CueBot = function() {
 			that._isDM = that._enums.checkForDM(that._channel, that._message);
 			if (that._message.type === 'message') {
 				if (that._isDM) {
-					// Send to API Function ...
+					// Send to API Function ...ho
 					that.routeReq(that._user, that._message, that.handleDataFromAPI);
 				}
 				else if (that._enums.isDirect(that._slack.self.id, message.text)) {
