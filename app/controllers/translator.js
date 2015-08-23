@@ -22,7 +22,7 @@ Translator = function() {
 				return {'ok' : false, 'message' : "Okay, something went wrong. Try starting your message with the `task` keyword or send `help` to get started." }
 			}
 		}
-		return {'ok' : false, 'message' : "Uh oh.. I think your message is too short. I don't quite understand it." }
+		return {'ok' : false, 'message' : "Uh oh.. I think your message is too short. send `help` to see a sample message." }
 	}
 
 	Translator.prototype.searchForKeyword = function (text, opClass) {

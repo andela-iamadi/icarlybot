@@ -18,6 +18,8 @@ Help = function(){
 				return this.delete();
 			case "sendDM":
 				return this.sendDM();
+			case "all":
+				return this.welcome_all();
 			case "error":
 				return this.unidentified_error();
 			default:
@@ -45,6 +47,29 @@ Help = function(){
 	}
 
 	Help.prototype.welcome = function(){
+		return msg = ["Hi " + this._user.name + ", thanks for hiring my services :smile:",
+							 ">>>",
+							 "To set a  reminder, just type:",
+							 ">`task [message] [options]`",
+							 "",
+							 "where",
+							 ">*_message_*: The message you wish me to remind you.",
+							 ">*_options_*: Additional options to add details. They include:-",
+							 "",
+							 "*Operation flags*",
+							 "",
+							 ">--e : to edit a task",
+							 ">--s : to show tasks",
+							 ">--x : to delete a task",
+							 "",
+							 "*_For example,_*",
+							 "",
+							 ">`task Log freckle --t 09:00 am --a freckle`",
+							 "",
+							 "" + this.dmAuthor() ].join('\r\n');
+	}
+
+	Help.prototype.welcome_all = function(){
 		var msg = ["Hi " + this._user.name + ", thanks for hiring my services :smile:",
 							 ">>>",
 							 "To set a  reminder, just type:",
