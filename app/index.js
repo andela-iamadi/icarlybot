@@ -34,6 +34,7 @@ CueBot = function() {
 	}
 
 	CueBot.prototype.handleReq = function (message, user, channel) {
+		that._params = {};
 		that._channel = channel;
 		that._user = user;
 		that._message = message;
@@ -42,7 +43,9 @@ CueBot = function() {
 			if (that._message.type === 'message') {
 				if (that._isDM) {
 					// Send to API Function ...
-					that.routeReq(that._user, that._message, that.handleDataFromAPI);
+					that.routeReq(that._user, that._message, function(data) {
+						that.handleDataFromAPI(this._task, this._channel, this._user);
+					});
 				}
 				else if (that._enums.isDirect(that._slack.self.id, message.text)) {
 					that._channel.send(that.help("sendDM")); // Request for a DM

@@ -2,8 +2,8 @@
 var Slack = require ('slack-client');
 var CueBot = require('./app');
 
-// var token = 'xoxb-6103676707-84LoSdao8sr4s2tzpnaMyqyj'; // arbot
-var token = 'xoxb-7916142720-fjvl0Auh8m4wpvktynqj0vek'; // CueBot
+var token = 'xoxb-6103676707-84LoSdao8sr4s2tzpnaMyqyj'; // arbot
+// var token = 'xoxb-7916142720-fjvl0Auh8m4wpvktynqj0vek'; // CueBot
 autoReconnect = true
 autoMark = true
 
@@ -47,9 +47,6 @@ slack.on('message', function(message) {
     cueBot.handleReq(message, user, channel);
 });
 
-slack.on('hello', function(message) {
-  debugger;
-});
 
 slack.on ('error', function(error) {
   console.error("Error: " + error);
