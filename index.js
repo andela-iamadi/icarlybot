@@ -1,6 +1,6 @@
 
 var Slack = require ('slack-client');
-var CueBot = require('./app');
+var CueBot = require('app');
 
 var token = 'xoxb-6103676707-84LoSdao8sr4s2tzpnaMyqyj'; // arbot
 // var token = 'xoxb-7916142720-fjvl0Auh8m4wpvktynqj0vek'; // CueBot
@@ -34,8 +34,8 @@ slack.on('open', function () {
      console.log('As well as: ' + groups.join(', '));
   }
   if (typeof cueBot === "undefined") {
-    cueBot  = new CueBot(slack);
-    cueBot.setAllReminders();
+    cueBot  = new CueBot();
+    cueBot.setAllReminders(slack);
   }
 });
 
